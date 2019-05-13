@@ -1,5 +1,7 @@
 package com.serverside.behappy.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,8 +13,9 @@ public class PreparatoryTechnique {
     public PreparatoryTechnique() {
     }
 
-    public PreparatoryTechnique(Integer id_user, Integer date) {
+    public PreparatoryTechnique(Integer id_user, Integer id_technique, Integer date) {
         this.id_user = id_user;
+        this.id_technique = id_technique;
         this.date = date;
     }
 
@@ -20,7 +23,10 @@ public class PreparatoryTechnique {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private Integer id_user,
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private Integer id_user;
+
+    private Integer id_technique,
                     date;
 
     public Long getId() {
@@ -37,6 +43,14 @@ public class PreparatoryTechnique {
 
     public void setId_user(Integer id_user) {
         this.id_user = id_user;
+    }
+
+    public Integer getId_technique() {
+        return id_technique;
+    }
+
+    public void setId_technique(Integer id_technique) {
+        this.id_technique = id_technique;
     }
 
     public Integer getDate() {

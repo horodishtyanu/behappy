@@ -1,6 +1,8 @@
 package com.serverside.behappy.models;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 
 @Entity
@@ -20,8 +22,10 @@ public class NegativeEmotionsPast {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private Integer id_user,
-                    year,
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private Integer id_user;
+
+    private Integer year,
                     month,
                     date;
 
