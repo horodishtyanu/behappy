@@ -2,13 +2,13 @@ package com.serverside.behappy.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.serverside.behappy.models.User;
+import com.serverside.behappy.models.UserAuth;
 import com.serverside.behappy.repos.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
@@ -42,9 +42,22 @@ public class UserController {
     }
 
     @PostMapping("/auth")
-    public Object userAuth(@RequestParam String email, String password){
+    public Object userAuth(@RequestBody String json){
+        UserAuth uauth = new UserAuth();
+        ObjectMapper om = new ObjectMapper();
+        try {
+            uauth = om.readValue(json, UserAuth.class);
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+        String email = uauth.getEmail();
+        String password = uauth.getPassword();
+
         List<User> user;
         user = userRepo.findAllByEmailAndPassword(email, password);
+        if (user.isEmpty()){
+            return new ResponseEntity<>("No user exists!", HttpStatus.BAD_REQUEST);
+        }
         return user;
     }
 }
