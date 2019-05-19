@@ -11,7 +11,7 @@ public class NegativeEmotionsPast {
     public NegativeEmotionsPast() {
     }
 
-    public NegativeEmotionsPast(Integer id_user, Integer year, Integer month, Integer date) {
+    public NegativeEmotionsPast(Integer id_user, Integer year, Integer month, Long date) {
         this.id_user = id_user;
         this.year = year;
         this.month = month;
@@ -26,8 +26,8 @@ public class NegativeEmotionsPast {
     private Integer id_user;
 
     private Integer year,
-                    month,
-                    date;
+                    month;
+    private Long date;
 
 
     public Long getId() {
@@ -62,11 +62,11 @@ public class NegativeEmotionsPast {
         this.month = month;
     }
 
-    public Integer getDate() {
+    public Long getDate() {
         return date;
     }
 
-    public void setDate(Integer date) {
+    public void setDate(Long date) {
         this.date = date;
     }
 }

@@ -11,13 +11,13 @@ public class User {
     public User() {
     }
 
-    public User(String name, String email, Set<NegativeEmotionsPast> negativeEmotionsPasts, Set<PreparatoryTechnique> preparatoryTechniques, String password, Integer dateOfBirth) {
+    public User(String name, String email, Set<NegativeEmotionsPast> negative_emotions_pasts, Set<PreparatoryTechnique> preparatory_techniques, String password, Long date_of_birth) {
         this.name = name;
         this.email = email;
-        this.negativeEmotionsPasts = negativeEmotionsPasts;
-        this.preparatoryTechniques = preparatoryTechniques;
+        this.negative_emotions_pasts = negative_emotions_pasts;
+        this.preparatory_techniques = preparatory_techniques;
         this.password = password;
-        this.DateOfBirth = dateOfBirth;
+        this.date_of_birth = date_of_birth;
     }
 
     @Id
@@ -31,13 +31,13 @@ public class User {
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
-    private Integer DateOfBirth;
+    private Long date_of_birth;
 
     @OneToMany(mappedBy = "id_user")
-    private Set<NegativeEmotionsPast> negativeEmotionsPasts;
+    private Set<NegativeEmotionsPast> negative_emotions_pasts;
 
     @OneToMany(mappedBy = "id_user")
-    private Set<PreparatoryTechnique> preparatoryTechniques;
+    private Set<PreparatoryTechnique> preparatory_techniques;
 
     public Long getId() {
         return id;
@@ -71,27 +71,27 @@ public class User {
         this.password = password;
     }
 
-    public Integer getDateOfBirth() {
-        return DateOfBirth;
+    public Long getDate_of_birth() {
+        return date_of_birth;
     }
 
-    public void setDateOfBirth(Integer dateOfBirth) {
-        DateOfBirth = dateOfBirth;
+    public void setDate_of_birth(Long date_of_birth) {
+        this.date_of_birth = date_of_birth;
     }
 
-    public Set<NegativeEmotionsPast> getNegativeEmotionsPasts() {
-        return negativeEmotionsPasts;
+    public Set<NegativeEmotionsPast> getNegative_emotions_pasts() {
+        return negative_emotions_pasts;
     }
 
-    public void setNegativeEmotionsPasts(Set<NegativeEmotionsPast> negativeEmotionsPasts) {
-        this.negativeEmotionsPasts = negativeEmotionsPasts;
+    public void setNegative_emotions_pasts(Set<NegativeEmotionsPast> negative_emotions_pasts) {
+        this.negative_emotions_pasts = negative_emotions_pasts;
     }
 
-    public Set<PreparatoryTechnique> getPreparatoryTechniques() {
-        return preparatoryTechniques;
+    public Set<PreparatoryTechnique> getPreparatory_techniques() {
+        return preparatory_techniques;
     }
 
-    public void setPreparatoryTechniques(Set<PreparatoryTechnique> preparatoryTechniques) {
-        this.preparatoryTechniques = preparatoryTechniques;
+    public void setPreparatory_techniques(Set<PreparatoryTechnique> preparatory_techniques) {
+        this.preparatory_techniques = preparatory_techniques;
     }
 }

@@ -13,7 +13,7 @@ public class PreparatoryTechnique {
     public PreparatoryTechnique() {
     }
 
-    public PreparatoryTechnique(Integer id_user, Integer id_technique, Integer date) {
+    public PreparatoryTechnique(Integer id_user, Integer id_technique, Long date) {
         this.id_user = id_user;
         this.id_technique = id_technique;
         this.date = date;
@@ -25,9 +25,9 @@ public class PreparatoryTechnique {
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Integer id_user;
+    private Integer id_technique;
 
-    private Integer id_technique,
-                    date;
+    private Long date;
 
     public Long getId() {
         return id;
@@ -53,11 +53,11 @@ public class PreparatoryTechnique {
         this.id_technique = id_technique;
     }
 
-    public Integer getDate() {
+    public Long getDate() {
         return date;
     }
 
-    public void setDate(Integer date) {
+    public void setDate(Long date) {
         this.date = date;
     }
 }
