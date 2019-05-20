@@ -53,9 +53,8 @@ public class UserController {
         String email = uauth.getEmail();
         String password = uauth.getPassword();
 
-        List<User> user;
-        user = userRepo.findAllByEmailAndPassword(email, password);
-        if (user.isEmpty()){
+        User user = userRepo.findAllByEmailAndPassword(email, password);
+        if (user == null){
             return new ResponseEntity<>("No user exists!", HttpStatus.BAD_REQUEST);
         }
         return user;
