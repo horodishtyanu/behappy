@@ -5,23 +5,28 @@ import com.serverside.behappy.models.User;
 import com.serverside.behappy.models.UserAuth;
 import com.serverside.behappy.repos.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
-import java.util.List;
 
 @RestController
 public class UserController {
 
     private final UserRepo userRepo;
 
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+
     @Autowired
     public UserController(UserRepo userRepo) {
         this.userRepo = userRepo;
+        bCryptPasswordEncoder = new BCryptPasswordEncoder();
     }
 
     @PostMapping("/register")
@@ -36,6 +41,8 @@ public class UserController {
         if (!userRepo.findAllByEmail(newUser.getEmail()).isEmpty()){
             return new ResponseEntity<>("User already exists", HttpStatus.BAD_REQUEST);
         }
+        String password = this.bCryptPasswordEncoder.encode(newUser.getPassword());
+        newUser.setPassword(password);
 
         userRepo.save(newUser);
         return newUser;
@@ -53,9 +60,12 @@ public class UserController {
         String email = uauth.getEmail();
         String password = uauth.getPassword();
 
-        User user = userRepo.findAllByEmailAndPassword(email, password);
+
+        User user = userRepo.findUserByEmail(email);
         if (user == null){
             return new ResponseEntity<>("No user exists!", HttpStatus.BAD_REQUEST);
+        }else  if ( !bCryptPasswordEncoder.matches(password, user.getPassword())){
+            return new ResponseEntity<>("Login or password is incorrect!!!", HttpStatus.BAD_REQUEST);
         }
         return user;
     }
